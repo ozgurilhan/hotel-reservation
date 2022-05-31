@@ -46,7 +46,7 @@ namespace Reservation.Service
 
         public void AddRoom(int hotelId, string roomName, int price)
         {
-            _roomRepository.Insert(new Room { HotelId = hotelId, RoomName = roomName });
+            _roomRepository.Insert(new Room { HotelId = hotelId, RoomName = roomName, Price = price });
         }
 
         public void DeleteCustomer(int customerId)
@@ -96,8 +96,9 @@ namespace Reservation.Service
         public void UpdateRoom(int roomId, string roomNname, int price)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
+            var room = _roomRepository.GetById(roomId);
             parameters.Add("id", roomId);
-            var room = _customerRepository.ExecuteReader<Room>("sel_get_room_by_id", parameters).FirstOrDefault();
+            //var room = _customerRepository.ExecuteReader<Room>("sel_get_room_by_id", parameters).FirstOrDefault();
 
             if (room != null)
             {
@@ -109,7 +110,7 @@ namespace Reservation.Service
 
         public List<Hotel> GetHotels()
         {
-            return _hotelRepository.GetList().ToList();
+            return _hotelRepository.ExecuteReader<Hotel>("sel_hotels", null).ToList();
         }
 
         public List<Hotel> GetHotelsBySearch(string hotelName)

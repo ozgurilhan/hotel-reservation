@@ -187,7 +187,7 @@ namespace Reservation
         void ListBookingsOnCalendar()
         {
             var bookingViews = _service.GetBookings(null, true);
-            calendar.MinDate = DateTime.Today;
+            //calendar.MinDate = DateTime.Today;
             List<DateTime> boldedDates = new List<DateTime>();
 
             foreach (var b in bookingViews)
